@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.naming.spi.DirStateFactory;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -57,7 +58,6 @@ public class Tuongtac {
                 "Mã hàng", "Tên hàng","Mã chất liệu","Số lượng","Đơn giá nhập","Đơn giá bán","Ảnh","Ghi chú"
             }
         );
-        
        hang=HangDAL.getAll();
        for (int i = 0; i < hang.size(); i++) {
                 
@@ -72,17 +72,131 @@ public class Tuongtac {
        }            
            return tablehang;  
     }
+    
+    public static DefaultTableModel LoadNhanvien()
+    {
+        ArrayList<Nhanvien> nhanvien = new ArrayList<Nhanvien>();
+        DefaultTableModel tablenhanvien = new DefaultTableModel
+        (  new Object[][]
+            {
+            }
+            , 
+            new String [] 
+            {
+                "Mã nhân viên", "Tên nhân viên", "Giới tính", "Địa chỉ", "Điện thoại", "Ngày sinh"
+            }
+        );
+        
+       nhanvien=NhanvienDAL.getAll();
+       for (int i = 0; i < nhanvien.size(); i++) {
+                
+              tablenhanvien.addRow(new Object[]{nhanvien.get(i).getmanhanvien(),
+                  nhanvien.get(i).gettennhanvien(),
+                  nhanvien.get(i).getgioitinh(),
+                  nhanvien.get(i).getdiachi(),
+                  nhanvien.get(i).getdienthoai(),
+                  nhanvien.get(i).getngaysinh()});
+       }            
+           return tablenhanvien;  
+    }
+    
+    public static DefaultTableModel LoadKhach()
+    {
+        ArrayList<Khach> khach = new ArrayList<Khach>();
+        DefaultTableModel tablekhach = new DefaultTableModel
+        (  new Object[][]
+            {
+            }
+            , 
+            new String [] 
+            {
+                "Mã khách", "Tên khách", "Địa chỉ", "Điện thoại"
+            }
+        );
+        
+       khach=KhachDAL.getAll();
+       for (int i = 0; i < khach.size(); i++) {
+                
+              tablekhach.addRow(new Object[]{khach.get(i).getmakhach(),
+                  khach.get(i).gettenkhach(),
+                  khach.get(i).getdiachi(),
+                  khach.get(i).getdienthoai()});
+       }            
+           return tablekhach;  
+    }
+    
+    public static DefaultTableModel LoadCTHDBan()
+    {
+        ArrayList<ChitietHDBan> cthdb = new ArrayList<ChitietHDBan>();
+        DefaultTableModel tablecthdb = new DefaultTableModel
+        (  new Object[][]
+            {
+            }
+            , 
+            new String [] 
+            {
+                "Mã HĐ bán", "Mã hàng" ,"Số lượng","Đơn giá","Giảm giá","Thành tiền"
+            }
+        );
+        
+       cthdb=ChitietHDBanDAL.getAll();
+       for (int i = 0; i < cthdb.size(); i++) {
+                
+              tablecthdb.addRow(new Object[]{cthdb.get(i).getmahdban(),
+                  cthdb.get(i).getmahang(),
+                  cthdb.get(i).getsoluong(),
+                  cthdb.get(i).getdongia(),
+                  cthdb.get(i).getgiamgia(),
+                  cthdb.get(i).getthanhtien()});
+       }            
+           return tablecthdb;  
+    }
+    
+    public static DefaultTableModel LoadHDBan()
+    {
+        ArrayList<HDBan> hdb = new ArrayList<HDBan>();
+        DefaultTableModel tablehdb = new DefaultTableModel
+        (  new Object[][]
+            {
+            }
+            , 
+            new String [] 
+            {
+                "Mã HĐ Bán", "Mã nhân viên", "Ngày bán", "Mã khách", "Tổng tiền"
+            }
+        );
+        
+       hdb=HDBanDAL.getAll();
+       for (int i = 0; i < hdb.size(); i++) {
+                
+              tablehdb.addRow(new Object[]{hdb.get(i).getmahdban(),
+                  hdb.get(i).getmanhanvien(),
+                  hdb.get(i).getngayban(),
+                  hdb.get(i).getmakhach(),
+                  hdb.get(i).gettongtien()});
+       }            
+           return tablehdb;  
+    }
+    
+     
     public static void themchatlieu(JTextField machatlieu,JTextField tenchatlieu,JTable t){
         ChatlieuDAL.insert(machatlieu.getText(),tenchatlieu.getText());
-        Loadchatlieu();
     }
     public static void xoachatlieu(JTextField machatlieu,JTable t){
         ChatlieuDAL.delete(machatlieu.getText());
-        Loadchatlieu();
     }
     public static void suachatlieu(JTextField machatlieu,JTextField tenchatlieu,JTable t){
         ChatlieuDAL.update(machatlieu.getText(),tenchatlieu.getText());
-        Loadchatlieu();
+    }
+    
+    public static void themHang(JTextField mahang, JTextField tenhang, JTextField machatlieu, JTextField soluong, JTextField dongianhap, JTextField dongiaban, JTextField anh, JTextArea ghichu, JTable t){
+        HangDAL.insert(mahang.getText(), tenhang.getText(), machatlieu.getText(), Double.parseDouble(soluong.getText()), Double.parseDouble(dongianhap.getText()), Double.parseDouble(dongiaban.getText()), anh.getText(), ghichu.getText());
+    }
+    public static void xoaHang(JTextField mahang, JTable t){
+        HangDAL.delete(mahang.getText());
+    }
+    public static void suaHang(JTextField mahang, JTextField tenhang, JTextField machatlieu, JTextField soluong, JTextField dongianhap, JTextField dongiaban, JTextField anh, JTextArea ghichu, JTable t){
+        HangDAL.update(mahang.getText(), tenhang.getText(), machatlieu.getText(),Double.parseDouble(soluong.getText()),Double.parseDouble(dongianhap.getText()),Double.parseDouble(dongiaban.getText()), anh.getText(), ghichu.getText());
     }
     
     

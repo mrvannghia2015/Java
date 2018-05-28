@@ -38,57 +38,62 @@ public class ChatlieuDAL {
         }
         return null;
     }   
-    public static void insert (String machatlieu,String tenchatlieu)
+    public static int insert (String machatlieu,String tenchatlieu)
     {
         Connection con = DBConnect.Moketnoi();
         try {
             
             Statement stm = con.createStatement();
             String sqlinsert="insert into ChatLieu(Machatlieu,Tenchatlieu) values('"+machatlieu+"','"+tenchatlieu+"')";
-            ResultSet rs=stm.executeQuery(sqlinsert);
+            int rs=stm.executeUpdate(sqlinsert);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(ChatlieuDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
-    public static void update (String machatlieu,String tenchatlieu)
+    public static int update (String machatlieu,String tenchatlieu)
     {
         Connection con = DBConnect.Moketnoi();
         try {
             Statement stm = con.createStatement();
             String sqlupdate="update Chatlieu set Tenchatlieu= '"+tenchatlieu+"' where Machatlieu='"+machatlieu+"'";
-            ResultSet rs=stm.executeQuery(sqlupdate);
+            int rs=stm.executeUpdate(sqlupdate);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(ChatlieuDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
-    public static void delete (String machatlieu)
+    public static int delete (String machatlieu)
     {
         Connection con = DBConnect.Moketnoi();
         try {
             
             Statement stm = con.createStatement();
             String sqldelete="delete from Chatlieu where Machatlieu = '"+machatlieu+"'";
-            ResultSet rs=stm.executeQuery(sqldelete);
+            int rs=stm.executeUpdate(sqldelete);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(ChatlieuDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
         
-    //public static void main(String[] args) {
-        
-        /*ArrayList<Chatlieu> kq= getAll();
+    public static void main(String[] args) {
+        /*
+        ArrayList<Chatlieu> kq= getAll();
         for(int i=0;i<kq.size();i++)
         {
             System.out.println(kq.get(i).getmachatlieu()+"\t"+kq.get(i).gettenchatlieu());
         }
-        insert("MCL005","alumium");
-        update("MCL005","TITAN");
-        delete("MCL005");
         */
+        //insert("MCL009","alumium");
+        //update("MCL005","TITAN");
+        //delete("MCL009");
+        
     }
+}

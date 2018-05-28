@@ -47,7 +47,7 @@ public class HangDAL {
         }
         return null;
     }   
-    public static void insert (String mahang, String tenhang, String machatlieu, Double soluong, Double dongianhap, Double dongiaban, String anh, String ghichu)
+    public static int insert (String mahang, String tenhang, String machatlieu, Double soluong, Double dongianhap, Double dongiaban, String anh, String ghichu)
     {
         Connection con = DBConnect.Moketnoi();
         try {
@@ -55,39 +55,42 @@ public class HangDAL {
             Statement stm = con.createStatement();
             String sqlinsert="insert into Hang(Mahang, Tenhang, Machatlieu, Soluong, Dongianhap, Dongiaban, Anh, Ghichu)"
                     + " values('"+mahang+"','"+tenhang+"','"+machatlieu+"','"+soluong+"','"+dongianhap+"','"+dongiaban+"','"+anh+"','"+ghichu+"')";
-            ResultSet rs=stm.executeQuery(sqlinsert);
+            int rs=stm.executeUpdate(sqlinsert);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(ChatlieuDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
-    public static void update (String mahang, String tenhang, String machatlieu, Double soluong, Double dongianhap, Double dongiaban, String anh, String ghichu)
+    public static int update (String mahang, String tenhang, String machatlieu, Double soluong, Double dongianhap, Double dongiaban, String anh, String ghichu)
     {
         Connection con = DBConnect.Moketnoi();
         try {
             Statement stm = con.createStatement();
             String sqlupdate="update Hang set Tenhang='"+tenhang+"',Machatlieu='"+machatlieu+"',Soluong = '"+soluong+"',Dongianhap = '"+dongianhap+"',Dongiaban = '"+dongiaban+"',Anh= '"+anh+"',Ghichu= '"+ghichu+"'where Mahang='"+mahang+"'";
-            ResultSet rs=stm.executeQuery(sqlupdate);
+            int rs=stm.executeUpdate(sqlupdate);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(ChatlieuDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
-    public static void delete (String mahang)
+    public static int delete (String mahang)
     {
         Connection con = DBConnect.Moketnoi();
         try {
             
             Statement stm = con.createStatement();
             String sqldelete="delete from Hang where Mahang = '"+mahang+"'";
-            ResultSet rs=stm.executeQuery(sqldelete);
+            int rs=stm.executeUpdate(sqldelete);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(ChatlieuDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
     public static void main(String[] args) {
         

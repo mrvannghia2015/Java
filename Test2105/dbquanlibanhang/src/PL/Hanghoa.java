@@ -24,6 +24,11 @@ public class Hanghoa extends javax.swing.JFrame {
         initComponents();
         LoadChatlieu();
         LoadHang();
+        LoadNhanvien();
+        LoadKhach();
+        LoadCTHDBan();
+        LoadHDBan();
+        
     }
 
     /**
@@ -71,6 +76,7 @@ public class Hanghoa extends javax.swing.JFrame {
         btnthemhang = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblhang = new javax.swing.JTable();
+        txtanh = new javax.swing.JTextField();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -275,8 +281,18 @@ public class Hanghoa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtghichu);
 
         btnsuahang.setText("Sửa");
+        btnsuahang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsuahangActionPerformed(evt);
+            }
+        });
 
         btnxoahang.setText("Xóa");
+        btnxoahang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoahangActionPerformed(evt);
+            }
+        });
 
         btnthemhang.setText("Thêm");
         btnthemhang.addActionListener(new java.awt.event.ActionListener() {
@@ -322,6 +338,7 @@ public class Hanghoa extends javax.swing.JFrame {
         jLayeredPane4.setLayer(btnxoahang, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(btnthemhang, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(txtanh, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
@@ -366,9 +383,11 @@ public class Hanghoa extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtsoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txttenhang, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 191, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtanh, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txttenhang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+                        .addGap(0, 55, Short.MAX_VALUE))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -387,8 +406,10 @@ public class Hanghoa extends javax.swing.JFrame {
                     .addComponent(txtmachatlieufk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(txtsoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jLabel9)
+                .addGap(27, 27, 27)
+                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane4Layout.createSequentialGroup()
                         .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -995,7 +1016,8 @@ public class Hanghoa extends javax.swing.JFrame {
     }//GEN-LAST:event_rdnamActionPerformed
 
     private void btnthemchatlieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemchatlieuActionPerformed
-        Tuongtac.themchatlieu(txtmachatlieu, txttenchatlieu,tblchatlieu);
+        Tuongtac.themchatlieu(txtmachatlieu, txttenchatlieu, tblchatlieu);
+        LoadChatlieu();
     }//GEN-LAST:event_btnthemchatlieuActionPerformed
 
     private void btnthemkhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemkhachActionPerformed
@@ -1015,7 +1037,9 @@ public class Hanghoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnthemcthdbanActionPerformed
 
     private void btnthemhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemhangActionPerformed
-        // TODO add your handling code here:
+        Tuongtac.themHang(txtmahang, txttenhang, txtmachatlieu, txtsoluong, txtdongianhap, txtdongiaban, txtanh, txtghichu, tblhang);
+        LoadHang();
+        
     }//GEN-LAST:event_btnthemhangActionPerformed
 
     private void txtdongianhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdongianhapActionPerformed
@@ -1023,12 +1047,24 @@ public class Hanghoa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdongianhapActionPerformed
 
     private void btnxoachatlieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoachatlieuActionPerformed
-        Tuongtac.xoachatlieu(txtmachatlieu,tblchatlieu);
+        Tuongtac.xoachatlieu(txtmachatlieu, tblchatlieu);
+        LoadChatlieu();
     }//GEN-LAST:event_btnxoachatlieuActionPerformed
 
     private void btnsuachatlieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuachatlieuActionPerformed
-        Tuongtac.suachatlieu(txtmachatlieu, txttenchatlieu,tblchatlieu);
+        Tuongtac.suachatlieu(txtmachatlieu, txttenchatlieu, tblchatlieu);
+        LoadChatlieu();
     }//GEN-LAST:event_btnsuachatlieuActionPerformed
+
+    private void btnxoahangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoahangActionPerformed
+        Tuongtac.xoaHang(txtmahang,tblhang);
+        LoadHang();
+    }//GEN-LAST:event_btnxoahangActionPerformed
+
+    private void btnsuahangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuahangActionPerformed
+        Tuongtac.suaHang(txtmahang, txttenhang, txtmachatlieu, txtsoluong, txtdongianhap, txtdongiaban, txtanh, txtghichu,tblhang);
+        LoadHang();
+    }//GEN-LAST:event_btnsuahangActionPerformed
 
     
     
@@ -1041,6 +1077,23 @@ public class Hanghoa extends javax.swing.JFrame {
     {
         tblhang.setModel(Tuongtac.LoadHang());
     }
+    public void LoadNhanvien()
+    {
+        tblnhanvien.setModel(Tuongtac.LoadNhanvien());
+    }
+    public void LoadKhach()
+    {
+        tblkhach.setModel(Tuongtac.LoadKhach());
+    }
+    public void LoadCTHDBan()
+    {      
+        tblcthdban.setModel(Tuongtac.LoadCTHDBan());
+    }
+    public void LoadHDBan()
+    {
+        tblhdban.setModel(Tuongtac.LoadHDBan());
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1151,6 +1204,7 @@ public class Hanghoa extends javax.swing.JFrame {
     private javax.swing.JTable tblhdban;
     private javax.swing.JTable tblkhach;
     private javax.swing.JTable tblnhanvien;
+    private javax.swing.JTextField txtanh;
     private javax.swing.JTextField txtdiachi;
     private javax.swing.JTextField txtdiachinv;
     private javax.swing.JTextField txtdienthoai;
